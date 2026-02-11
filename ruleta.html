@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruleta Carnaval Trebujena</title>
+
+<style>
+body {
+    margin: 0;
+    background-image: url(data:image/webp;base64,UklGRtgEAABXRUJQVlA4IMwEAADwJwCdASpHAQ4BPp1On04lpCKjICjYsBOJZ27gTUrrCimW3fbye2Tz//T+1Lfr0Znw3//XD//1tTvYAK1tv083YkYJg7Xrs6pwFI6cbc0FiOnmRn9RtjSZ6IJIcHegokqrzErznpTEIozxF+1uF2WBvIoJ3WrxTGSqBNZfWLpldBmIkmWPruFSkZU8naY9a8RUpxoB3LAUONLbaihQ5Hlhvd04EtjQ/ah4xRLPQgOFG3q1Z+1e6vff0ttjMfY8/ePnh5NZrRy8nzrWJNeRwP4o/+6OVb/gwF0giHZf/57+/v88oyo91zOMNFwDiaM5g75lHnmQ9DCD/M01oXoZkonO1j7st6YzC1iYab0wAXOtlFvygPqooLXCfn2k0v/xfgC2srdrrcDrI9eDH0ylIUuRgHlL+hX0485cTzaOzpol23CCB1jmfS2AAP7wEMv5n3p0eS/9z/Sj2vVHnNK7Rr87mOEdpJOJDiLOk2AWDQeg+J+Hy47e0RZQvoxr4WLWJf5yU/wJxvWlcADa14dzJSwD97uyOI5Zn/rBQNG0muQ8pFJZTqMeFEV3Gkweyk0mQmWt5khm+cU3cV/WHRsOjjhEyEYQE/2sWMAjFAbmfIrq6hM5NJdkKJcv80ZB01w/Rs6WNF8DeFWPncIxjLWLzD5MfggA2MqfMfnUVRPctq7Ftw+5ipN6qZsX06nCMAmqVMwa+bygnS7m16hvVcWkJA5c9bn3Nm48rb45/hG5fg2lHgOyO8HQ/fu61FQwWSCVqJUaoXRsbp+tx9w3MDqCp0grTIiS/xTRhTd2mXf1jubEdKIdYvvItT74fsjCrwcC41BH7OU46FsGFUKZ8oXob5tACP0+Bnzf4YfySbvpqvaQkMFII4g8xwsyFWU+rsRR7HcjGQp2M+egifq0OXbxiNVytB0X+8YRO1zkfmdc0ELVGXmPsM3KJ2Zw7/UuyNmtvKUDVQKdqlqB15TSayohGPviydStu1/4C8OLJ5wkNXR0d5lT9NOoHRyzCOwH9AecY20XWOocxBMWZyo1UK7vcgbQRT9lNsCPJjce1Tngpz13ax5T5nBJE4t2+gEI/m8t/wQ44yHVQm54WHOO6Iaq8Kms+VfpE8NAO+ThSeKuVwT4shiZSDSLwD2J1kXwleIQu2FqkirTcjkLSpcXTBpSoZlj/g6wUQ+F4Wl2P6UbZTwnZUl7dn24wx7wTcQWBIO1XJWpCkZQHP4zm9HCEmsqrFeyEWjMQsLIH3Amqrs5o1J4myZU6u0FYiKQcRWBRs6MTmLk48yHQVHp3rxkY9mwA4iYnxYG1+Mmj6e6vP1BUmnRg7OTlp8fh1PLhEl8/H2lff8pNVyLSQgF1DCruhnwayW7mnkYCGnJ29RACLJrhQs91DE0iBwe6wnIdEtZtseB5IYP35rIQUJCIjGiNr4AkcSvDyBdN56Og42mqQYRG7wckfx4d1DiCyfdxJY7+ifisfctK0rQulq3mTdGVgwO5kVmYkIUNs3zVJjlF7A2uVW95BmeQ0lRMFhhfaa/ZpNujzBavCy+N6eA76EL43yipFLWrJF3VmnHVyaLuAAr1541vQvT5MDsOyw/gk0yqCpaSBeUGalN3mVhbq9AAZw2qCjYro7UlxGpEVynewAA);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial;
+    color: white;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.container {
+    position: relative;
+    margin-top: 30px;
+}
+
+canvas {
+    border-radius: 50%;
+    background: white;
+}
+
+.flecha {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    color: red;
+}
+
+button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+
+/* POPUP */
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(data:image/webp;base64,UklGRtgEAABXRUJQVlA4IMwEAADwJwCdASpHAQ4BPp1On04lpCKjICjYsBOJZ27gTUrrCimW3fbye2Tz//T+1Lfr0Znw3//XD//1tTvYAK1tv083YkYJg7Xrs6pwFI6cbc0FiOnmRn9RtjSZ6IJIcHegokqrzErznpTEIozxF+1uF2WBvIoJ3WrxTGSqBNZfWLpldBmIkmWPruFSkZU8naY9a8RUpxoB3LAUONLbaihQ5Hlhvd04EtjQ/ah4xRLPQgOFG3q1Z+1e6vff0ttjMfY8/ePnh5NZrRy8nzrWJNeRwP4o/+6OVb/gwF0giHZf/57+/v88oyo91zOMNFwDiaM5g75lHnmQ9DCD/M01oXoZkonO1j7st6YzC1iYab0wAXOtlFvygPqooLXCfn2k0v/xfgC2srdrrcDrI9eDH0ylIUuRgHlL+hX0485cTzaOzpol23CCB1jmfS2AAP7wEMv5n3p0eS/9z/Sj2vVHnNK7Rr87mOEdpJOJDiLOk2AWDQeg+J+Hy47e0RZQvoxr4WLWJf5yU/wJxvWlcADa14dzJSwD97uyOI5Zn/rBQNG0muQ8pFJZTqMeFEV3Gkweyk0mQmWt5khm+cU3cV/WHRsOjjhEyEYQE/2sWMAjFAbmfIrq6hM5NJdkKJcv80ZB01w/Rs6WNF8DeFWPncIxjLWLzD5MfggA2MqfMfnUVRPctq7Ftw+5ipN6qZsX06nCMAmqVMwa+bygnS7m16hvVcWkJA5c9bn3Nm48rb45/hG5fg2lHgOyO8HQ/fu61FQwWSCVqJUaoXRsbp+tx9w3MDqCp0grTIiS/xTRhTd2mXf1jubEdKIdYvvItT74fsjCrwcC41BH7OU46FsGFUKZ8oXob5tACP0+Bnzf4YfySbvpqvaQkMFII4g8xwsyFWU+rsRR7HcjGQp2M+egifq0OXbxiNVytB0X+8YRO1zkfmdc0ELVGXmPsM3KJ2Zw7/UuyNmtvKUDVQKdqlqB15TSayohGPviydStu1/4C8OLJ5wkNXR0d5lT9NOoHRyzCOwH9AecY20XWOocxBMWZyo1UK7vcgbQRT9lNsCPJjce1Tngpz13ax5T5nBJE4t2+gEI/m8t/wQ44yHVQm54WHOO6Iaq8Kms+VfpE8NAO+ThSeKuVwT4shiZSDSLwD2J1kXwleIQu2FqkirTcjkLSpcXTBpSoZlj/g6wUQ+F4Wl2P6UbZTwnZUl7dn24wx7wTcQWBIO1XJWpCkZQHP4zm9HCEmsqrFeyEWjMQsLIH3Amqrs5o1J4myZU6u0FYiKQcRWBRs6MTmLk48yHQVHp3rxkY9mwA4iYnxYG1+Mmj6e6vP1BUmnRg7OTlp8fh1PLhEl8/H2lff8pNVyLSQgF1DCruhnwayW7mnkYCGnJ29RACLJrhQs91DE0iBwe6wnIdEtZtseB5IYP35rIQUJCIjGiNr4AkcSvDyBdN56Og42mqQYRG7wckfx4d1DiCyfdxJY7+ifisfctK0rQulq3mTdGVgwO5kVmYkIUNs3zVJjlF7A2uVW95BmeQ0lRMFhhfaa/ZpNujzBavCy+N6eA76EL43yipFLWrJF3VmnHVyaLuAAr1541vQvT5MDsOyw/gk0yqCpaSBeUGalN3mVhbq9AAZw2qCjYro7UlxGpEVynewAA);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    padding: 30px 50px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
+    font-size: 22px;
+}
+
+#popup button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 18px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎡 Ruleta Carnaval Trebujena 🎡</h1>
+
+<div class="container">
+    <div class="flecha">▼</div>
+    <canvas id="ruleta" width="400" height="400"></canvas>
+</div>
+
+<button onclick="girar()">GIRAR</button>
+
+<!-- POPUP -->
+<div id="popup">
+    <div id="textoPopup"></div>
+    <button onclick="cerrarPopup()">OK</button>
+</div>
+
+<script>
+// Opciones principales
+const opciones = [
+    "Verdad",
+    "Reto",
+    "Pico en menos de 1 min",
+    "Hidalgo de la copa"
+];
+
+// Colores
+const colores = ["#ff4d6d", "#f9c74f", "#90be6d", "#43aa8b", "#577590"];
+
+// Sub-opciones
+const retos = [
+    "Beso con la persona que te gusta o con alguien del grupo",
+    "Conseguir el Instagram de 3 personas del sexo opuesto",
+    "Intercámbiate el disfraz con un desconocido"
+];
+
+const verdades = [
+    "Confesar quien te gusta",
+    "Cantidad de líos que has tenido este 2026",
+    "Último lío",
+    "Última persona con la que has ido más allá que un beso"
+];
+
+const canvas = document.getElementById("ruleta");
+const ctx = canvas.getContext("2d");
+
+let anguloActual = 0;
+let girando = false;
+
+function dibujarRuleta() {
+    const centro = canvas.width / 2;
+    const radio = centro;
+    const angulo = (2 * Math.PI) / opciones.length;
+
+    for (let i = 0; i < opciones.length; i++) {
+        ctx.beginPath();
+        ctx.moveTo(centro, centro);
+        ctx.arc(centro, centro, radio, angulo * i, angulo * (i + 1));
+        ctx.fillStyle = colores[i % colores.length];
+        ctx.fill();
+        ctx.save();
+
+        ctx.translate(centro, centro);
+        ctx.rotate(angulo * i + angulo / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "white";
+        ctx.font = "16px Arial";
+        ctx.fillText(opciones[i], radio - 10, 5);
+        ctx.restore();
+    }
+}
+
+dibujarRuleta();
+
+function girar() {
+    if (girando) return;
+    girando = true;
+
+    const vueltas = Math.random() * 5 + 5; 
+    const anguloFinal = anguloActual + (vueltas * 2 * Math.PI);
+
+    const duracion = 4000;
+    const inicio = performance.now();
+
+    function animar(tiempo) {
+        const progreso = (tiempo - inicio) / duracion;
+
+        if (progreso < 1) {
+            const easeOut = 1 - Math.pow(1 - progreso, 3);
+            anguloActual = anguloFinal * easeOut;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(anguloActual);
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+            dibujarRuleta();
+            ctx.restore();
+
+            requestAnimationFrame(animar);
+        } else {
+            girando = false;
+
+            const anguloSeccion = (2 * Math.PI) / opciones.length;
+            let anguloFlecha = anguloActual + Math.PI / 2;
+            anguloFlecha = anguloFlecha % (2 * Math.PI);
+            if (anguloFlecha < 0) anguloFlecha += 2 * Math.PI;
+
+            const indice = Math.floor((opciones.length - (anguloFlecha / anguloSeccion)) % opciones.length);
+            let resultado = opciones[indice];
+
+            // Sub-opciones
+            if (resultado === "Reto") {
+                const sub = retos[Math.floor(Math.random() * retos.length)];
+                resultado += " → " + sub;
+            } else if (resultado === "Verdad") {
+                const sub = verdades[Math.floor(Math.random() * verdades.length)];
+                resultado += " → " + sub;
+            }
+
+            mostrarPopup(resultado);
+        }
+    }
+
+    requestAnimationFrame(animar);
+}
+
+// FUNCIONES POPUP
+function mostrarPopup(texto) {
+    document.getElementById("textoPopup").innerText = "Te tocó: " + texto;
+    document.getElementById("popup").style.display = "block";
+}
+
+function cerrarPopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
